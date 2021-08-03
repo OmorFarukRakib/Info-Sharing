@@ -1,0 +1,72 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html {
+  width: 100%;
+  height: 100vh;
+}
+body {
+  height: 100%;
+}
+.my-modal {
+  width: 80%;
+  max-width: 90% !important;
+  /* TO change the width of the table and the modal */
+}
+
+/* max-width: none !important; */
+.alert-shown {
+  opacity: 1;
+  transition: all 250ms linear;
+}
+
+.alert-hidden {
+  opacity: 0;
+  transition: all 250ms linear 2s;
+}
+
+.nav-wrapper {
+  width: 100%;
+  /* height: 4rem; */
+  height: 6vh;
+  background: #1f2023;
+  border: 1px #5e5e5e solid;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr;
+  /* justify-items: right;*/
+  align-items: center;
+}
+.nav-title {
+  color: white;
+  margin-left: 4rem;
+}
+.body-wrapper {
+  width: 100%;
+  height: 94vh;
+  display: grid;
+  grid-template-columns: 2fr 10fr;
+  border: 1px #5e5e5e solid;
+}
+
+.main-body {
+  background: #202124;
+  height: 100%;
+  width: inherit;
+  display: grid;
+  justify-items: stretch;
+  align-items: center;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  grid-gap: 1rem;
+}
+#JsonPaper {
+  align-self: end;
+  /* align-self: end -> vertically */
+  justify-self: end;
+}
+#NotePaper {
+  align-self: end;
+}

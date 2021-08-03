@@ -1,25 +1,41 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { Button } from "@material-ui/core";
+import MainBody from "./MainBody";
+import "./customClass.css";
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <>
+      <div className="nav-wrapper" style={{ position: "relative" }}>
+        <div className="nav-title">
+          <h2>VIP Note</h2>
+        </div>
+        <Button
+          variant="contained"
+          color="#4E4F50"
+          style={{
+            justifySelf: "end",
+            marginRight: "1rem",
+            position: "absolute",
+            maxHeight: "4vh",
+            width: "4rem",
+            maxWidth: "4rem",
+          }}
         >
-          Learn React
-        </a>
-      </header>
-    </div>
+          Logout
+        </Button>
+      </div>
+      <div className="body-wrapper">
+        <div
+          className="profile-nav"
+          style={{ border: "1px #5E5E5E solid", background: "#2A2B2E" }}
+        >
+          Profile Name
+        </div>
+        <MainBody />
+      </div>
+    </>
   );
-}
+};
 
 export default App;
