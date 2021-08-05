@@ -4,7 +4,7 @@ import Collapse from "@material-ui/core/Collapse";
 import CloseIcon from "@material-ui/icons/Close";
 
 import { AlertTitle } from "@material-ui/lab";
-import { BeatLoader } from "react-spinners";
+import { DotLoader } from "react-spinners";
 
 export const ErrorMessage = ({ error, handleClearMessage }) => {
   return (
@@ -55,7 +55,43 @@ export const WarningMessageForForAddRequiredData = ({
           }
         >
           <AlertTitle>Error!</AlertTitle>
-          <strong> Please Enter All the information to create new Note!</strong>
+          <strong>
+            {" "}
+            Please Enter All the information to create new Product!
+          </strong>
+        </Alert>
+      </Collapse>
+    </>
+  );
+};
+
+export const ErrorValidationFailedMessage = ({
+  error,
+  handleClearMessage,
+}) => {
+  return (
+    <>
+      <Collapse in={error}>
+        <Alert
+          severity="error"
+          action={
+            <IconButton
+              aria-label="close"
+              color="inherit"
+              size="small"
+              onClick={() => {
+                handleClearMessage();
+              }}
+            >
+              <CloseIcon fontSize="inherit" />
+            </IconButton>
+          }
+        >
+          <AlertTitle>Error!</AlertTitle>
+          <strong>
+            {" "}
+            Please Enter Valid Email ID.
+          </strong>
         </Alert>
       </Collapse>
     </>
@@ -87,7 +123,7 @@ export const EditSuccessMessage = ({
         >
           <AlertTitle>Success</AlertTitle>
           Update Successful!! —{" "}
-          <strong> Note ID: {lastUpdateId} has been modified! </strong>
+          <strong> Product ID: {lastUpdateId} has been modified! </strong>
         </Alert>
       </Collapse>
     </>
@@ -119,7 +155,7 @@ export const DeleteSuccessMessage = ({
         >
           <AlertTitle>Success</AlertTitle>
           Delete Successful!! —{" "}
-          <strong> Note ID: {lastUpdateId} has been deleted! </strong>
+          <strong> Product ID: {lastUpdateId} has been deleted! </strong>
         </Alert>
       </Collapse>
     </>
@@ -149,8 +185,8 @@ export const AddSuccessMessage = ({
           }
         >
           <AlertTitle>Success</AlertTitle>
-          New Note Add Successful!! —{" "}
-          <strong> Note ID: {lastUpdateId} has been added! </strong>
+          New Product Add Successful!! —{" "}
+          <strong> Product ID: {lastUpdateId} has been added! </strong>
         </Alert>
       </Collapse>
     </>
@@ -166,11 +202,11 @@ export const Loading = ({ tableLoading }) => {
         alignItems: "center",
       }}
     >
-      <BeatLoader
+      <DotLoader
         color={"#eee"}
         loading={tableLoading}
         css="margin-top: 15rem;"
-        size={80}
+        size={100}
       />
     </div>
   );

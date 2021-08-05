@@ -2,21 +2,8 @@ import { TextField } from "@material-ui/core";
 
 const tableColumns = [
   {
-    title: "Note ID",
-    field: "note_id",
-    editable: "never",
-    cellStyle: {
-      width: "5%",
-      textAlign: "center",
-    },
-    headerStyle: {
-      textAlign: "center",
-      //  backgroundColor: "#039be5",
-    },
-  },
-  {
-    title: "Created By",
-    field: "user_id",
+    title: "Company ID",
+    field: "company_id",
     editable: "never",
     cellStyle: {
       width: "10%",
@@ -26,25 +13,22 @@ const tableColumns = [
       textAlign: "center",
       //  backgroundColor: "#039be5",
     },
+
+    editComponent: ({ value, onChange }) => (
+      <TextField
+        autoFocus={true}
+        onChange={(e) => onChange(e.target.value)}
+        value={value}
+        multiline
+        fullWidth
+      />
+    ),
   },
   {
-    title: "Last Updated By",
-    field: "updated_by_user_id",
-    editable: "never",
+    title: "Name",
+    field: "name",
     cellStyle: {
-      width: "10%",
-      textAlign: "center",
-    },
-    headerStyle: {
-      textAlign: "center",
-      //  backgroundColor: "#039be5",
-    },
-  },
-  {
-    title: "Title",
-    field: "title",
-    cellStyle: {
-      width: "10%",
+      width: "20%",
       textAlign: "center",
     },
     headerStyle: {
@@ -62,11 +46,11 @@ const tableColumns = [
     ),
   },
   {
-    title: "Event ID",
-    field: "event_id",
+    title: "UX Sales",
+    field: "ux_sales",
     cellStyle: {
       textAlign: "center",
-      width: "10%",
+      width: "20%",
     },
     headerStyle: {
       textAlign: "center",
@@ -82,10 +66,10 @@ const tableColumns = [
     ),
   },
   {
-    title: "Company ID",
-    field: "company_id",
+    title: "UX Tech",
+    field: "ux_tech",
     cellStyle: {
-      width: "10%",
+      width: "20%",
       textAlign: "center",
     },
     headerStyle: {
@@ -103,56 +87,15 @@ const tableColumns = [
     //lookup: { 1: "İstanbul", 2: "Şanlıurfa" },
   },
   {
-    title: "Product ID",
-    field: "product_id",
-    cellStyle: {
-      width: "10%",
-      textAlign: "center",
-    },
-    headerStyle: {
-      textAlign: "center",
-      //  backgroundColor: "#039be5",
-    },
-    editComponent: ({ value, onChange }) => (
-      <TextField
-        onChange={(e) => onChange(e.target.value)}
-        value={value}
-        multiline
-        fullWidth
-      />
-    ),
-  },
-  {
-    title: "Content",
-    field: "content",
-    cellStyle: {
-      textAlign: "center",
-      width: "25%",
-    },
-    headerStyle: {
-      textAlign: "center",
-      //  backgroundColor: "#039be5",
-    },
-    editComponent: ({ value, onChange }) => (
-      <TextField
-        onChange={(e) => onChange(e.target.value)}
-        value={value}
-        multiline
-        fullWidth
-      />
-    ),
-  },
-
-  {
     title: "Additional Info",
     field: "additional_info",
     cellStyle: {
+      width: "30%",
       textAlign: "center",
-      width: "25%",
     },
     headerStyle: {
+      // backgroundColor: "#039be5",
       textAlign: "center",
-      //  backgroundColor: "#039be5",
     },
     editComponent: ({ value, onChange }) => (
       <TextField
@@ -162,6 +105,8 @@ const tableColumns = [
         fullWidth
       />
     ),
+    //lookup: { 1: "İstanbul", 2: "Şanlıurfa" },
   },
+  
 ];
 export default tableColumns;

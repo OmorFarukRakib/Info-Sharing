@@ -15,6 +15,7 @@ import {
 import {
   ErrorMessage,
   WarningMessageForForAddRequiredData,
+  ErrorValidationFailedMessage,
   EditSuccessMessage,
   DeleteSuccessMessage,
   AddSuccessMessage,
@@ -22,7 +23,7 @@ import {
 } from "./TableActionAlert";
 import tableColumns from "./TableColumns";
 
-const VIPNoteTable = () => {
+const UserTable = () => {
   const [countData, setCountData] = useState(0);
   const [data, setDataList] = useState([]);
   const [preferDarkMode, setPreferDarkMode] = useState(() => {
@@ -37,10 +38,7 @@ const VIPNoteTable = () => {
   const [lastUpdateId, setLastUpdateId] = useState(null);
   const [warningForAddRequiredData, setWarningForAddRequiredData] =
     useState(false);
-  // const [userName, setUserName] = useState("");
-  // if(API){
-  //   setUserName(API.data);
-  // }
+  const [emailValidationFailed, setEmailValidationFailed] = useState(false);
 
   useEffect(() => {
     handlecountData();
@@ -81,81 +79,57 @@ const VIPNoteTable = () => {
     HandleAllDataReadAPI(ifSuccess, ifError);
   };
 
-  const handleNewTableDataAdd = (
-    title,
-    event_id,
-    company_id,
-    product_id,
-    content,
-    additional_info
-  ) => {
+  const handleNewTableDataAdd = (addData) => {
     handleClearMessage();
-    const ifSuccess = (note_id) => {
+    const ifSuccess = (user_id) => {
       handleTableDataShow();
-      setLastUpdateId(`${note_id}`);
+      setLastUpdateId(`${user_id}`);
       setAddSuccess(true);
     };
     const ifError = () => {
       setError(true);
     };
-    const addData = {
-      title,
-      event_id,
-      company_id,
-      product_id,
-      content,
-      additional_info,
-    };
+
     HandleAddAPI(addData, ifSuccess, ifError);
   };
 
-  const handleTableDataEdit = (
-    note_id,
-    title,
-    event_id,
-    company_id,
-    product_id,
-    content,
-    additional_info
-  ) => {
+  const handleTableDataEdit = (updatedData) => {
     handleClearMessage();
     const ifSuccess = () => {
       handleTableDataShow();
-      setLastUpdateId(`${note_id}`);
+      setLastUpdateId(`${updatedData.user_id}`);
       setEditSuccess(true);
     };
     const ifError = () => {
       setError(true);
     };
-    const editData = {
-      note_id,
-      title,
-      event_id,
-      company_id,
-      product_id,
-      content,
-      additional_info,
-    };
 
-    HandleEditAPI(editData, ifSuccess, ifError);
+    HandleEditAPI(updatedData, ifSuccess, ifError);
   };
 
-  const handleTableDataDelete = (note_id) => {
+  const handleTableDataDelete = (user_id) => {
     handleClearMessage();
     const ifSuccess = () => {
       handleTableDataShow();
-      setLastUpdateId(`${note_id}`);
+      setLastUpdateId(`${user_id}`);
       setDeleteSuccess(true);
     };
     const ifError = () => {
       setError(true);
     };
-    HandleDeleteAPI(`${note_id}`, ifSuccess, ifError);
+    HandleDeleteAPI(`${user_id}`, ifSuccess, ifError);
+  };
+
+  const isEmailValid = (email) => {
+    const emailRegexp =
+      /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+    return emailRegexp.test(email);
   };
 
   const handleClearMessage = () => {
     setError(false);
     setWarningForAddRequiredData(false);
+    setEmailValidationFailed(false);
     setEditSuccess(false);
     setDeleteSuccess(false);
     setAddSuccess(false);
@@ -167,6 +141,11 @@ const VIPNoteTable = () => {
       <ErrorMessage error={error} handleClearMessage={handleClearMessage} />
       <WarningMessageForForAddRequiredData
         error={warningForAddRequiredData}
+        handleClearMessage={handleClearMessage}
+      />
+
+      <ErrorValidationFailedMessage
+        error={emailValidationFailed}
         handleClearMessage={handleClearMessage}
       />
       <EditSuccessMessage
@@ -184,7 +163,6 @@ const VIPNoteTable = () => {
         handleClearMessage={handleClearMessage}
         lastUpdateId={lastUpdateId}
       />
-
       {tableLoading && <Loading tableLoading={tableLoading} />}
       {!tableLoading && (
         <MuiThemeProvider theme={theme}>
@@ -194,76 +172,76 @@ const VIPNoteTable = () => {
               width: "100%",
               maxWidth: "90% !important",
               display: "inline-table",
-              height: "90%",
               borderRadius: "2rem",
             }}
             data={data}
             columns={tableColumns}
-            detailPanel={[
-              {
-                tooltip: "Show body",
-                render: (rowData) => {
-                  return (
-                    <div
-                      style={{
-                        margin: "20px",
-                        fontSize: 20,
-                        textAlign: "center",
-                        color: "black",
-                        backgroundColor: "white",
-                      }}
-                    >
-                      {rowData.content}
-                    </div>
-                  );
-                },
-              },
-            ]}
+            // detailPanel={[
+            //   {
+            //     tooltip: "Show body",
+            //     render: (rowData) => {
+            //       return (
+            //         <div
+            //           style={{
+            //             margin: "20px",
+            //             fontSize: 20,
+            //             textAlign: "center",
+            //             color: "black",
+            //             backgroundColor: "white",
+            //           }}
+            //         >
+            //           {rowData.content}
+            //         </div>
+            //       );
+            //     },
+            //   },
+            // ]}
             editable={{
               onRowAdd: (newRow) =>
                 new Promise((res, rej) => {
-                  console.log(newRow);
-                  if (
-                    newRow.title &&
-                    newRow.event_id &&
-                    newRow.company_id &&
-                    newRow.product_id &&
-                    newRow.content &&
-                    newRow.additional_info
-                  ) {
-                    handleNewTableDataAdd(
-                      newRow.title,
-                      newRow.event_id,
-                      newRow.company_id,
-                      newRow.product_id,
-                      newRow.content,
-                      newRow.additional_info
-                    );
-                    res();
+                  if (isEmailValid(newRow.email)) {
+                    console.log(newRow);
+                    if (
+                      newRow.username &&
+                      newRow.user_level &&
+                      newRow.fullname &&
+                      newRow.email &&
+                      newRow.department
+                    ) {
+                      const addData = {
+                        name: newRow.username,
+                        user_level: newRow.user_level,
+                        fullname: newRow.fullname,
+                        email: newRow.email,
+                        department: newRow.department,
+                      };
+                      handleNewTableDataAdd(addData);
+                      res();
+                    } else {
+                      setWarningForAddRequiredData(true);
+                      rej();
+                    }
                   } else {
-                    setWarningForAddRequiredData(true);
+                    setEmailValidationFailed(true);
                     rej();
                   }
                 }),
               onRowDelete: (selectedRow) =>
                 new Promise((res, rej) => {
-                  console.log(selectedRow.note_id);
-                  handleTableDataDelete(selectedRow.note_id);
+                  console.log(selectedRow.user_id);
+                  handleTableDataDelete(selectedRow.user_id);
                   res();
                 }),
               onRowUpdate: (updatedRow, oldRow) =>
                 new Promise((res, rej) => {
-                  console.log(updatedRow);
-                  handleTableDataEdit(
-                    updatedRow.note_id,
-                    updatedRow.title,
-                    updatedRow.event_id,
-                    updatedRow.company_id,
-                    updatedRow.product_id,
-                    updatedRow.content,
-                    updatedRow.additional_info
-                  );
-                  res();
+                  if (isEmailValid(updatedRow.email)) {
+                    console.log(updatedRow);
+                    handleTableDataEdit(updatedRow);
+                    res();
+                  } else {
+                    setEmailValidationFailed(true);
+                    rej();
+                  }
                 }),
             }}
             options={{
@@ -304,4 +282,4 @@ const VIPNoteTable = () => {
   );
 };
 
-export default VIPNoteTable;
+export default UserTable;

@@ -1,22 +1,10 @@
 import { TextField } from "@material-ui/core";
+import CustomDatePicker from "../CustomDatePicker/CustomDatePicker"
 
 const tableColumns = [
   {
-    title: "Note ID",
-    field: "note_id",
-    editable: "never",
-    cellStyle: {
-      width: "5%",
-      textAlign: "center",
-    },
-    headerStyle: {
-      textAlign: "center",
-      //  backgroundColor: "#039be5",
-    },
-  },
-  {
-    title: "Created By",
-    field: "user_id",
+    title: "Event ID",
+    field: "event_id",
     editable: "never",
     cellStyle: {
       width: "10%",
@@ -26,23 +14,20 @@ const tableColumns = [
       textAlign: "center",
       //  backgroundColor: "#039be5",
     },
+
+    editComponent: ({ value, onChange }) => (
+      <TextField
+        autoFocus={true}
+        onChange={(e) => onChange(e.target.value)}
+        value={value}
+        multiline
+        fullWidth
+      />
+    ),
   },
   {
-    title: "Last Updated By",
-    field: "updated_by_user_id",
-    editable: "never",
-    cellStyle: {
-      width: "10%",
-      textAlign: "center",
-    },
-    headerStyle: {
-      textAlign: "center",
-      //  backgroundColor: "#039be5",
-    },
-  },
-  {
-    title: "Title",
-    field: "title",
+    title: "Name",
+    field: "name",
     cellStyle: {
       width: "10%",
       textAlign: "center",
@@ -62,11 +47,11 @@ const tableColumns = [
     ),
   },
   {
-    title: "Event ID",
-    field: "event_id",
+    title: "Information",
+    field: "info",
     cellStyle: {
       textAlign: "center",
-      width: "10%",
+      width: "20%",
     },
     headerStyle: {
       textAlign: "center",
@@ -82,8 +67,8 @@ const tableColumns = [
     ),
   },
   {
-    title: "Company ID",
-    field: "company_id",
+    title: "Company List",
+    field: "company_list",
     cellStyle: {
       width: "10%",
       textAlign: "center",
@@ -103,56 +88,81 @@ const tableColumns = [
     //lookup: { 1: "İstanbul", 2: "Şanlıurfa" },
   },
   {
-    title: "Product ID",
-    field: "product_id",
+    title: "Additional Info",
+    field: "additional_info",
+    cellStyle: {
+      width: "20%",
+      textAlign: "center",
+    },
+    headerStyle: {
+      // backgroundColor: "#039be5",
+      textAlign: "center",
+    },
+    editComponent: ({ value, onChange }) => (
+      <TextField
+        onChange={(e) => onChange(e.target.value)}
+        value={value}
+        multiline
+        fullWidth
+      />
+    ),
+    //lookup: { 1: "İstanbul", 2: "Şanlıurfa" },
+  },
+  {
+    title: "Started At",
+    field: "startedAt",
+    type: "datetime",
+  //  filterComponent: (props) => <CustomDatePicker {...props} />,
     cellStyle: {
       width: "10%",
       textAlign: "center",
     },
     headerStyle: {
+      // backgroundColor: "#039be5",
       textAlign: "center",
-      //  backgroundColor: "#039be5",
     },
-    editComponent: ({ value, onChange }) => (
-      <TextField
-        onChange={(e) => onChange(e.target.value)}
-        value={value}
-        multiline
-        fullWidth
-      />
-    ),
+    // editComponent: ({ value, onChange }) => (
+    //   <TextField
+    //     onChange={(e) => onChange(e.target.value)}
+    //     value={value}
+    //     multiline
+    //     fullWidth
+    //   />
+    // ),
+    //lookup: { 1: "İstanbul", 2: "Şanlıurfa" },
   },
   {
-    title: "Content",
-    field: "content",
+    title: "Ended At",
+    field: "endedAt",
+    type: "datetime",
     cellStyle: {
+      width: "10%",
       textAlign: "center",
-      width: "25%",
     },
     headerStyle: {
+      // backgroundColor: "#039be5",
       textAlign: "center",
-      //  backgroundColor: "#039be5",
     },
-    editComponent: ({ value, onChange }) => (
-      <TextField
-        onChange={(e) => onChange(e.target.value)}
-        value={value}
-        multiline
-        fullWidth
-      />
-    ),
+    // editComponent: ({ value, onChange }) => (
+    //   <TextField
+    //     onChange={(e) => onChange(e.target.value)}
+    //     value={value}
+    //     multiline
+    //     fullWidth
+    //   />
+    // ),
+    //lookup: { 1: "İstanbul", 2: "Şanlıurfa" },
   },
-
   {
-    title: "Additional Info",
-    field: "additional_info",
+    title: "Expired",
+    field: "expired",
     cellStyle: {
+      width: "10%",
       textAlign: "center",
-      width: "25%",
     },
     headerStyle: {
+      // backgroundColor: "#039be5",
       textAlign: "center",
-      //  backgroundColor: "#039be5",
     },
     editComponent: ({ value, onChange }) => (
       <TextField
@@ -162,6 +172,7 @@ const tableColumns = [
         fullWidth
       />
     ),
+    //lookup: { 1: "İstanbul", 2: "Şanlıurfa" },
   },
 ];
 export default tableColumns;

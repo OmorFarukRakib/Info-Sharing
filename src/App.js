@@ -34,6 +34,9 @@ const App = () => {
         </div>
         <MainBody />
       </div>
+      <div className="footer">
+        <p>Ultra-X Asia Pacific</p>
+      </div>
     </>
   );
 };

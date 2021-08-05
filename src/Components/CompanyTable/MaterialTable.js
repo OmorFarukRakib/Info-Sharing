@@ -22,7 +22,7 @@ import {
 } from "./TableActionAlert";
 import tableColumns from "./TableColumns";
 
-const VIPNoteTable = () => {
+const CompanyTable = () => {
   const [countData, setCountData] = useState(0);
   const [data, setDataList] = useState([]);
   const [preferDarkMode, setPreferDarkMode] = useState(() => {
@@ -37,10 +37,6 @@ const VIPNoteTable = () => {
   const [lastUpdateId, setLastUpdateId] = useState(null);
   const [warningForAddRequiredData, setWarningForAddRequiredData] =
     useState(false);
-  // const [userName, setUserName] = useState("");
-  // if(API){
-  //   setUserName(API.data);
-  // }
 
   useEffect(() => {
     handlecountData();
@@ -81,76 +77,46 @@ const VIPNoteTable = () => {
     HandleAllDataReadAPI(ifSuccess, ifError);
   };
 
-  const handleNewTableDataAdd = (
-    title,
-    event_id,
-    company_id,
-    product_id,
-    content,
-    additional_info
-  ) => {
+  const handleNewTableDataAdd = (addData) => {
     handleClearMessage();
-    const ifSuccess = (note_id) => {
+    const ifSuccess = (company_id) => {
       handleTableDataShow();
-      setLastUpdateId(`${note_id}`);
+      setLastUpdateId(`${company_id}`);
       setAddSuccess(true);
     };
     const ifError = () => {
       setError(true);
     };
-    const addData = {
-      title,
-      event_id,
-      company_id,
-      product_id,
-      content,
-      additional_info,
-    };
+
     HandleAddAPI(addData, ifSuccess, ifError);
   };
 
-  const handleTableDataEdit = (
-    note_id,
-    title,
-    event_id,
-    company_id,
-    product_id,
-    content,
-    additional_info
-  ) => {
+  const handleTableDataEdit = (updatedData) => {
     handleClearMessage();
     const ifSuccess = () => {
       handleTableDataShow();
-      setLastUpdateId(`${note_id}`);
+      setLastUpdateId(`${updatedData.company_id}`);
       setEditSuccess(true);
     };
     const ifError = () => {
       setError(true);
     };
-    const editData = {
-      note_id,
-      title,
-      event_id,
-      company_id,
-      product_id,
-      content,
-      additional_info,
-    };
+    
 
-    HandleEditAPI(editData, ifSuccess, ifError);
+    HandleEditAPI(updatedData, ifSuccess, ifError);
   };
 
-  const handleTableDataDelete = (note_id) => {
+  const handleTableDataDelete = (company_id) => {
     handleClearMessage();
     const ifSuccess = () => {
       handleTableDataShow();
-      setLastUpdateId(`${note_id}`);
+      setLastUpdateId(`${company_id}`);
       setDeleteSuccess(true);
     };
     const ifError = () => {
       setError(true);
     };
-    HandleDeleteAPI(`${note_id}`, ifSuccess, ifError);
+    HandleDeleteAPI(`${company_id}`, ifSuccess, ifError);
   };
 
   const handleClearMessage = () => {
@@ -194,51 +160,47 @@ const VIPNoteTable = () => {
               width: "100%",
               maxWidth: "90% !important",
               display: "inline-table",
-              height: "90%",
               borderRadius: "2rem",
             }}
             data={data}
             columns={tableColumns}
-            detailPanel={[
-              {
-                tooltip: "Show body",
-                render: (rowData) => {
-                  return (
-                    <div
-                      style={{
-                        margin: "20px",
-                        fontSize: 20,
-                        textAlign: "center",
-                        color: "black",
-                        backgroundColor: "white",
-                      }}
-                    >
-                      {rowData.content}
-                    </div>
-                  );
-                },
-              },
-            ]}
+            // detailPanel={[
+            //   {
+            //     tooltip: "Show body",
+            //     render: (rowData) => {
+            //       return (
+            //         <div
+            //           style={{
+            //             margin: "20px",
+            //             fontSize: 20,
+            //             textAlign: "center",
+            //             color: "black",
+            //             backgroundColor: "white",
+            //           }}
+            //         >
+            //           {rowData.content}
+            //         </div>
+            //       );
+            //     },
+            //   },
+            // ]}
             editable={{
               onRowAdd: (newRow) =>
                 new Promise((res, rej) => {
                   console.log(newRow);
                   if (
-                    newRow.title &&
-                    newRow.event_id &&
-                    newRow.company_id &&
-                    newRow.product_id &&
-                    newRow.content &&
+                    newRow.name &&
+                    newRow.ux_sales &&
+                    newRow.ux_tech &&
                     newRow.additional_info
                   ) {
-                    handleNewTableDataAdd(
-                      newRow.title,
-                      newRow.event_id,
-                      newRow.company_id,
-                      newRow.product_id,
-                      newRow.content,
-                      newRow.additional_info
-                    );
+                    const addData = {
+                      name: newRow.name,
+                      ux_sales: newRow.ux_sales,
+                      ux_tech: newRow.ux_tech,
+                      additional_info: newRow.additional_info,
+                    };
+                    handleNewTableDataAdd(addData);
                     res();
                   } else {
                     setWarningForAddRequiredData(true);
@@ -247,22 +209,14 @@ const VIPNoteTable = () => {
                 }),
               onRowDelete: (selectedRow) =>
                 new Promise((res, rej) => {
-                  console.log(selectedRow.note_id);
-                  handleTableDataDelete(selectedRow.note_id);
+                  console.log(selectedRow.company_id);
+                  handleTableDataDelete(selectedRow.company_id);
                   res();
                 }),
               onRowUpdate: (updatedRow, oldRow) =>
                 new Promise((res, rej) => {
                   console.log(updatedRow);
-                  handleTableDataEdit(
-                    updatedRow.note_id,
-                    updatedRow.title,
-                    updatedRow.event_id,
-                    updatedRow.company_id,
-                    updatedRow.product_id,
-                    updatedRow.content,
-                    updatedRow.additional_info
-                  );
+                  handleTableDataEdit(updatedRow);
                   res();
                 }),
             }}
@@ -304,4 +258,4 @@ const VIPNoteTable = () => {
   );
 };
 
-export default VIPNoteTable;
+export default CompanyTable;
