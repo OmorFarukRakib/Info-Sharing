@@ -28,7 +28,11 @@ const App = () => {
       <div className="body-wrapper">
         <div
           className="profile-nav"
-          style={{ border: "1px #5E5E5E solid", background: "#2A2B2E" }}
+          style={{
+            border: "1px #5E5E5E solid",
+            background: "#2A2B2E",
+            // minWidth: "8rem",
+          }}
         >
           Profile Name
         </div>

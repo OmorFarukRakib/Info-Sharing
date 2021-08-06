@@ -47,7 +47,7 @@ export const HandleEditAPI = (editData, ifSuccess, ifError) => {
         console.log(res.data.SUCCESSFUL);
         ifSuccess();
       } else {
-         console.log(res);
+        console.log(res);
         ifError();
       }
     })
@@ -123,6 +123,29 @@ export const HandleDataCountAPI = (ifSuccess, ifError) => {
     })
     .then((countValue) => {
       ifSuccess(countValue);
+    })
+    .catch((err) => {
+      console.log(`${err}`);
+      ifError();
+    });
+};
+
+export const HandleResetPasswordAPI = (user_id, ifSuccess, ifError) => {
+  VIPNoteApi({
+    method: "post",
+    url: `/reset_password`,
+    data: {
+      username: `rakib`,
+      token: `V2e78jybobgQ3HRKS1KyODcekDnT2dnj3dGCkr95iaG6j7j7sKkVloCvTWKn0bLc6eyHSuS0GGjYAdtTohYGOnxmnKZz9UexDztyFHPNIflbQsIQJdtXjqSJoXuGwK9h`,
+      user_id: `${user_id}`,
+    },
+  })
+    .then((res) => {
+      //console.log(`olalala`);
+      console.log(res);
+      if (res.SUCCESSFUL) {
+        ifSuccess();
+      }
     })
     .catch((err) => {
       console.log(`${err}`);

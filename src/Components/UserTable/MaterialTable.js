@@ -11,6 +11,7 @@ import {
   HandleDeleteAPI,
   HandleEditAPI,
   HandleAddAPI,
+  HandleResetPasswordAPI,
 } from "./HandleAPIFunctions";
 import {
   ErrorMessage,
@@ -19,6 +20,7 @@ import {
   EditSuccessMessage,
   DeleteSuccessMessage,
   AddSuccessMessage,
+  ResetPasswordSuccessMessage,
   Loading,
 } from "./TableActionAlert";
 import tableColumns from "./TableColumns";
@@ -39,6 +41,7 @@ const UserTable = () => {
   const [warningForAddRequiredData, setWarningForAddRequiredData] =
     useState(false);
   const [emailValidationFailed, setEmailValidationFailed] = useState(false);
+  const [resetPasswordSuccess, setResetPasswordSuccess] = useState(false);
 
   useEffect(() => {
     handlecountData();
@@ -120,6 +123,19 @@ const UserTable = () => {
     HandleDeleteAPI(`${user_id}`, ifSuccess, ifError);
   };
 
+const HandlePasswordReset = (user_id) => {
+
+  const ifSuccess = () => {
+    //handleTableDataShow();
+    setLastUpdateId(`${user_id}`);
+    setResetPasswordSuccess(true);
+  };
+  const ifError = () => {
+    setError(true);
+  };
+  HandleResetPasswordAPI(`${user_id}`, ifSuccess, ifError);
+};
+
   const isEmailValid = (email) => {
     const emailRegexp =
       /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
@@ -134,6 +150,7 @@ const UserTable = () => {
     setDeleteSuccess(false);
     setAddSuccess(false);
     setLastUpdateId(null);
+   // setResetPasswordSuccess(false);
   };
 
   return (
@@ -143,7 +160,6 @@ const UserTable = () => {
         error={warningForAddRequiredData}
         handleClearMessage={handleClearMessage}
       />
-
       <ErrorValidationFailedMessage
         error={emailValidationFailed}
         handleClearMessage={handleClearMessage}
@@ -160,6 +176,12 @@ const UserTable = () => {
       />
       <AddSuccessMessage
         addSuccess={addSuccess}
+        handleClearMessage={handleClearMessage}
+        lastUpdateId={lastUpdateId}
+      />
+
+      <ResetPasswordSuccessMessage
+        resetPassworddSuccess={resetPasswordSuccess}
         handleClearMessage={handleClearMessage}
         lastUpdateId={lastUpdateId}
       />
@@ -235,7 +257,12 @@ const UserTable = () => {
               onRowUpdate: (updatedRow, oldRow) =>
                 new Promise((res, rej) => {
                   if (isEmailValid(updatedRow.email)) {
-                    console.log(updatedRow);
+                    // if(oldRow.passwordChanged === "0" && updatedRow.passwordChanged === "1"){
+
+                    // }
+                    if (updatedRow.passwordChanged === "0") {
+                      HandlePasswordReset(updatedRow.user_id);
+                    }
                     handleTableDataEdit(updatedRow);
                     res();
                   } else {

@@ -19,7 +19,7 @@ const tableColumns = [
     field: "user_id",
     editable: "never",
     cellStyle: {
-      width: "10%",
+      width: "5%",
       textAlign: "center",
     },
     headerStyle: {
@@ -28,11 +28,26 @@ const tableColumns = [
     },
   },
   {
+    title: "Created At",
+    field: "createdAt",
+    editable: "never",
+    type: "datetime",
+    cellStyle: {
+      width: "5%",
+      textAlign: "center",
+    },
+    headerStyle: {
+      textAlign: "center",
+
+      //  backgroundColor: "#039be5",
+    },
+  },
+  {
     title: "Last Updated By",
     field: "updated_by_user_id",
     editable: "never",
     cellStyle: {
-      width: "10%",
+      width: "5%",
       textAlign: "center",
     },
     headerStyle: {
@@ -40,6 +55,21 @@ const tableColumns = [
       //  backgroundColor: "#039be5",
     },
   },
+  {
+    title: "Updated At",
+    field: "updatedAt",
+    editable: "never",
+    type: "datetime",
+    cellStyle: {
+      width: "5%",
+      textAlign: "center",
+    },
+    headerStyle: {
+      textAlign: "center",
+      //  backgroundColor: "#039be5",
+    },
+  },
+
   {
     title: "Title",
     field: "title",
@@ -66,7 +96,7 @@ const tableColumns = [
     field: "event_id",
     cellStyle: {
       textAlign: "center",
-      width: "10%",
+      width: "5%",
     },
     headerStyle: {
       textAlign: "center",
@@ -85,7 +115,7 @@ const tableColumns = [
     title: "Company ID",
     field: "company_id",
     cellStyle: {
-      width: "10%",
+      width: "5%",
       textAlign: "center",
     },
     headerStyle: {
@@ -106,7 +136,7 @@ const tableColumns = [
     title: "Product ID",
     field: "product_id",
     cellStyle: {
-      width: "10%",
+      width: "5%",
       textAlign: "center",
     },
     headerStyle: {

@@ -191,8 +191,9 @@ const VIPNoteTable = () => {
           <MaterialTable
             title={<h4>Total Entries: {countData}</h4>}
             style={{
-              width: "100%",
-              maxWidth: "90% !important",
+              // width: "100%",
+              // width: "100%",
+              // maxWidth: "90% !important",
               display: "inline-table",
               height: "90%",
               borderRadius: "2rem",

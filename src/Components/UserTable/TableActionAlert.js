@@ -65,10 +65,7 @@ export const WarningMessageForForAddRequiredData = ({
   );
 };
 
-export const ErrorValidationFailedMessage = ({
-  error,
-  handleClearMessage,
-}) => {
+export const ErrorValidationFailedMessage = ({ error, handleClearMessage }) => {
   return (
     <>
       <Collapse in={error}>
@@ -88,10 +85,7 @@ export const ErrorValidationFailedMessage = ({
           }
         >
           <AlertTitle>Error!</AlertTitle>
-          <strong>
-            {" "}
-            Please Enter Valid Email ID.
-          </strong>
+          <strong> Please Enter Valid Email ID.</strong>
         </Alert>
       </Collapse>
     </>
@@ -187,6 +181,37 @@ export const AddSuccessMessage = ({
           <AlertTitle>Success</AlertTitle>
           New Product Add Successful!! —{" "}
           <strong> Product ID: {lastUpdateId} has been added! </strong>
+        </Alert>
+      </Collapse>
+    </>
+  );
+};
+export const ResetPasswordSuccessMessage = ({
+  resetPassworddSuccess,
+  handleClearMessage,
+  lastUpdateId,
+}) => {
+  return (
+    <>
+      <Collapse in={resetPassworddSuccess}>
+        <Alert
+          severity="success"
+          action={
+            <IconButton
+              aria-label="close"
+              color="inherit"
+              size="small"
+              onClick={() => {
+                handleClearMessage();
+              }}
+            >
+              <CloseIcon fontSize="inherit" />
+            </IconButton>
+          }
+        >
+          <AlertTitle>Success</AlertTitle>
+          Password Reset Successful!! —{" "}
+          <strong>Passwrod reset for user ID: {lastUpdateId} </strong>
         </Alert>
       </Collapse>
     </>

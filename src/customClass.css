@@ -65,6 +65,7 @@ body {
   grid-template-columns: 1fr;
   grid-template-rows: 1fr 11fr;
 }
+
 .body-button-wrap {
   background: inherit;
   height: 6vh;
@@ -74,9 +75,12 @@ body {
   gap: 0.5rem;
 }
 .table-wrapper {
+  justify-self: flex-start;
   background: #202124;
   height: 80vh;
+  /* width: 100%; */
   width: 100%;
+  /* max-width: 1178px; */
   margin: 0.1rem;
   padding-right: 4px;
 }

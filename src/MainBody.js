@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { makeStyles, Button } from "@material-ui/core";
-import TableBodyContainer from "./Modal";
+import TableBodyContainer from "./DataTablesContainer";
+import { Button } from "@material-ui/core";
 import "./customClass.css";
 
 const MainBody = () => {

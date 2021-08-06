@@ -1,5 +1,4 @@
 import React from "react";
-import { Modal } from "react-bootstrap";
 
 import VIPNoteTable from "./Components/VIPNoteTable/MaterialTable";
 import ProductTable from "./Components/ProductTable.js/MaterialTable";
